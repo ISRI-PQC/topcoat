@@ -5,27 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "java",
-            "name": "Launch Current File",
+            "name": "cai example: measure",
+            "type": "go",
             "request": "launch",
-            "mainClass": "${file}"
+            "mode": "auto",
+            "program": "examples/measure",
+            "showGlobalVariables": true,
         },
         {
-            "name": "POC local",
-            "type": "python",
+            "name": "cai example: local",
+            "type": "go",
             "request": "launch",
-            "program": "src/run_locally.py",
-            "console": "integratedTerminal",
-            "justMyCode": false
+            "mode": "auto",
+            "program": "examples/run_locally",
+            "showGlobalVariables": true,
         },
-        {
-            "name": "CLI keygen",
-            "type": "python",
-            "request": "launch",
-            "program": "src/run_cli.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,
-            "args": ["-c", "config_template.yaml", "keygen", "-o", "key.pkl"]
-        }
     ]
 }

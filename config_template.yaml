@@ -1,4 +1,0 @@
-mode: client # or server
-my_name: Alice # for logging identification
-host: localhost # for server mode, in client mode specify IP of server
-port: 3000

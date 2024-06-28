@@ -1,0 +1,24 @@
+# How many commitments to do in parallel
+PARALLEL_SESSIONS: 3
+
+N: 256
+Q: 8380417
+
+D: 13  # Number of bits dropped from t
+K: 4  # Matrices size
+L: 4
+
+ETA: 2  # Secret distribution
+TAU: 39  # Number of +- in hash challenge
+BETA: 78  # The maximum coefficient in cs
+GAMMA: 131072  # Rejection sampling 2^{17}
+GAMMA_PRIME: 95232
+
+# Commitment parameters
+COMMITMENT_Q: 8380417
+COMMITMENT_N: 256  # maximum order
+COMMITMENT_K: 15
+COMMITMENT_L: 4
+COMMITMENT_Nlower: 5
+COMMITMENT_BETA: 128
+COMMITMENT_B2: 1024
