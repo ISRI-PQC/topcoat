@@ -2,7 +2,7 @@ module cyber.ee/pq/topcoat
 
 go 1.22.2
 
-replace cyber.ee/pq/devkit => ../pqdevkit
+replace cyber.ee/pq/devkit => ./pqdevkit
 
 require (
 	cyber.ee/pq/devkit v0.0.0-00010101000000-000000000000
