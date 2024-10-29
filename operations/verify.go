@@ -30,7 +30,7 @@ func Verify(message []byte, signature utils.TopcoatSignature, pk utils.TopcoatPu
 	A := matrix.NewRandomPolyQMatrix(ASampler, int(config.Params.K), int(config.Params.L))
 
 	// STEP 3
-	wH := A.VecMul(signature.Z).Sub(pk.T.ScaleByPolyProxy(cHash0).ScaleByInt(devkit.Pow(2, int64(config.Params.D)))).(vector.PolyQVector).HighBits(2 * int64(config.Params.GAMMA_PRIME))
+	wH := A.VecMul(signature.Z).Sub(pk.T.ScaledByPolyProxy(cHash0).ScaledByInt(devkit.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
 
 	// STEP 4
 	wHroof := utils.UseHint(wH.TransformedToPolyVector(), signature.H1, signature.H2, devkit.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
@@ -38,7 +38,7 @@ func Verify(message []byte, signature utils.TopcoatSignature, pk utils.TopcoatPu
 	r1 := vector.NewRandomPolyQVectorWithMaxInfNormWithSeed(signature.RSeed1[:], int(config.Params.COMMITMENT_K), config.Params.COMMITMENT_BETA)
 	r2 := vector.NewRandomPolyQVectorWithMaxInfNormWithSeed(signature.RSeed2[:], int(config.Params.COMMITMENT_K), config.Params.COMMITMENT_BETA)
 
-	rCombined := r1.Add(r2).(vector.PolyQVector)
+	rCombined := r1.Add(r2)
 
 	// STEP 5
 	result := utils.OpenCommitment(A1, A2, signature.C1, signature.C2, wHroof.TransformedToPolyQVector(), rCombined) && !signature.Z.TransformedToPolyVector().CheckNormBound(2*(int64(config.Params.GAMMA)-int64(config.Params.COMMITMENT_BETA)))

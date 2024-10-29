@@ -36,7 +36,7 @@ func calculateCommitment(skMine utils.TopcoatPrivateKeyShare, A, A1, A2 matrix.P
 	// STEP 2
 	yMine := vector.NewRandomPolyQVectorWithMaxInfNorm(int(config.Params.L), config.Params.GAMMA-1)
 
-	wMine := A.VecMul(yMine).(vector.PolyQVector)
+	wMine := A.VecMul(yMine)
 
 	// STEP 3
 	wHMine := wMine.HighBits(int64(2 * config.Params.GAMMA_PRIME))
@@ -221,8 +221,8 @@ rejection:
 
 			for mineIndex := 0; mineIndex < int(config.Params.PARALLEL_SESSIONS); mineIndex++ {
 				// STEP 9.A - combine commitments "each with each"
-				c1CombinedTable[theirIndex][mineIndex] = c1MineListFromParallel[mineIndex].Add(c1TheirListFromParallel[theirIndex]).(vector.PolyQVector)
-				c2CombinedTable[theirIndex][mineIndex] = c2MineListFromParallel[mineIndex].Add(c2TheirListFromParallel[theirIndex]).(vector.PolyQVector)
+				c1CombinedTable[theirIndex][mineIndex] = c1MineListFromParallel[mineIndex].Add(c1TheirListFromParallel[theirIndex])
+				c2CombinedTable[theirIndex][mineIndex] = c2MineListFromParallel[mineIndex].Add(c2TheirListFromParallel[theirIndex])
 
 				// STEP 9.B
 				// use commitment_combined from i-th row and j-th column
@@ -239,16 +239,16 @@ rejection:
 				// logger.Printf("theirIndex %v, mine Index %v, cHash0: %v", theirIndex, mineIndex, c0Hash0PolyMatrix[theirIndex][mineIndex].CoeffString())
 
 				// STEP 10
-				zMineQMatrix[theirIndex][mineIndex] = yMineListFromParallel[mineIndex].Add(skMine.S1.ScaleByPolyProxy(c0Hash0PolyMatrix[theirIndex][mineIndex])).(vector.PolyQVector)
+				zMineQMatrix[theirIndex][mineIndex] = yMineListFromParallel[mineIndex].Add(skMine.S1.ScaledByPolyProxy(c0Hash0PolyMatrix[theirIndex][mineIndex]))
 
 				// STEP 11
 
 				reject := zMineQMatrix[theirIndex][mineIndex].TransformedToPolyVector().WithCenteredModulo().CheckNormBound(
 					int64(config.Params.GAMMA)-int64(config.Params.BETA),
 				) || wMineListFromParallel[mineIndex].Sub(
-					skMine.S2.ScaleByPolyProxy(
+					skMine.S2.ScaledByPolyProxy(
 						c0Hash0PolyMatrix[theirIndex][mineIndex],
-					)).(vector.PolyQVector).TransformedToPolyVector().LowBits(
+					)).TransformedToPolyVector().LowBits(
 					int64(2*config.Params.GAMMA_PRIME),
 				).CheckNormBound(int64(config.Params.GAMMA_PRIME)-int64(config.Params.BETA))
 
@@ -324,7 +324,7 @@ rejection:
 	}
 
 	// STEP 13
-	wHTheirs := A.VecMul(zTheirFinal).Sub(skMine.Ttheirs.ScaleByPolyProxy(cHash0Final)).(vector.PolyQVector).HighBits(2 * config.Params.GAMMA_PRIME)
+	wHTheirs := A.VecMul(zTheirFinal).Sub(skMine.Ttheirs.ScaledByPolyProxy(cHash0Final)).HighBits(2 * config.Params.GAMMA_PRIME)
 
 	zTheirFinalT := zTheirFinal.TransformedToPolyVector()
 	zTheirFinalT.ApplyToEveryCoeff(func(coeff int64) any {
@@ -354,15 +354,15 @@ rejection:
 	logger.Print("Calculated c1 and c2 CombinedFinal")
 
 	// STEP 15
-	zCombinedFinal := zMineQMatrix[theirIndexFinal][mineIndexFinal].Add(zTheirFinal).(vector.PolyQVector)
+	zCombinedFinal := zMineQMatrix[theirIndexFinal][mineIndexFinal].Add(zTheirFinal)
 	logger.Print("Calculated zCombinedFinal")
 
 	// STEP 16
-	wHroof := wHMineListFromParallel[mineIndexFinal].Add(wHTheirs).(vector.PolyQVector)
+	wHroof := wHMineListFromParallel[mineIndexFinal].Add(wHTheirs)
 	logger.Print("Calculated whroof")
 
 	// STEP 17
-	wH := A.VecMul(zCombinedFinal).Sub(pk.T.ScaleByPolyProxy(cHash0Final).ScaleByInt(devkit.Pow(2, int64(config.Params.D)))).(vector.PolyQVector).HighBits(2 * int64(config.Params.GAMMA_PRIME))
+	wH := A.VecMul(zCombinedFinal).Sub(pk.T.ScaledByPolyProxy(cHash0Final).ScaledByInt(devkit.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
 	logger.Print("Calculated wH")
 
 	// STEP 18

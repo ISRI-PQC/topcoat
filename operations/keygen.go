@@ -116,7 +116,7 @@ func Keygen(wg *sync.WaitGroup, comms utils.Comms, name string, ret chan KeygenR
 	logger.Print("computed combined t")
 
 	// STEP 12
-	t1, _ := tCombined.(vector.PolyQVector).Power2Round(config.Params.D)
+	t1, _ := tCombined.Power2Round(config.Params.D)
 	logger.Print("computed t1")
 
 	// STEP 13

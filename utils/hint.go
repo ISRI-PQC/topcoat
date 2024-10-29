@@ -29,6 +29,6 @@ func Hint(r, rPrime vector.PolyVector, alpha int64) (vector.PolyVector, vector.P
 }
 
 func UseHint(r, h1, h2 vector.PolyVector, alpha int64) vector.PolyVector {
-	h:= h1.ScaleByInt(alpha).Add(h2)
+	h:= h1.ScaledByInt(alpha).Add(h2)
 	return r.Sub(h).(vector.PolyVector)
 }

@@ -34,10 +34,10 @@ var Params *PublicParamsType
 func InitParams() {
 	// PARAMETERS
 	Params = new(PublicParamsType)
-	// viper.SetConfigFile(viper.GetString("configPath"))
-	viper.SetConfigName("params")                                     // TODO: temp
-	viper.SetConfigType("yaml")                                       // TODO: temp
-	viper.AddConfigPath("/Users/petr/Developer/Repos/topcoat/config") // TODO: temp
+	viper.SetConfigFile("/workspaces/go/topcoat/config/params.yaml")
+	// viper.SetConfigName("params") // TODO: temp
+	// viper.SetConfigType("yaml")   // TODO: temp
+	// viper.AddConfigPath("/Users/petr/Developer/Repos/topcoat/config") // TODO: temp
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Panicf("fatal error config file: %v", err)
