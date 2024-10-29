@@ -6,9 +6,9 @@ import (
 	"os"
 	"sync"
 
-	"cyber.ee/pq/devkit"
-	"cyber.ee/pq/devkit/poly/matrix"
-	"cyber.ee/pq/devkit/poly/vector"
+	"cyber.ee/pq/latticehelper"
+	"cyber.ee/pq/latticehelper/poly/matrix"
+	"cyber.ee/pq/latticehelper/poly/vector"
 	"cyber.ee/pq/topcoat/config"
 	"cyber.ee/pq/topcoat/utils"
 )
@@ -67,7 +67,7 @@ func Keygen(wg *sync.WaitGroup, comms utils.Comms, name string, ret chan KeygenR
 		ASeedCombined[i] = AMineSeed[i] ^ ATheirSeed[i]
 	}
 
-	ASampler, err := devkit.GetSampler(ASeedCombined[:])
+	ASampler, err := latticehelper.GetSampler(ASeedCombined[:])
 	if err != nil {
 		panic(err)
 	}

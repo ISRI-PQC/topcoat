@@ -3,7 +3,7 @@ package config
 import (
 	"log"
 
-	"cyber.ee/pq/devkit"
+	"cyber.ee/pq/latticehelper"
 	"github.com/spf13/viper"
 )
 
@@ -50,10 +50,10 @@ func InitParams() {
 
 	Params.DIFFERENT_Qs = Params.Q != Params.COMMITMENT_Q
 
-	// INITIALIZE DEVKIT
+	// INITIALIZE LatticeHelper
 	if Params.DIFFERENT_Qs {
-		devkit.InitMultiple(Params.N, []uint64{uint64(Params.Q), uint64(Params.COMMITMENT_Q)})
+		latticehelper.InitMultiple(Params.N, []uint64{uint64(Params.Q), uint64(Params.COMMITMENT_Q)})
 	} else {
-		devkit.InitSingle(Params.N, uint64(Params.Q))
+		latticehelper.InitSingle(Params.N, uint64(Params.Q))
 	}
 }

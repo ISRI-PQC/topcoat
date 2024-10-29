@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"cyber.ee/pq/devkit"
-	"cyber.ee/pq/devkit/poly/matrix"
-	"cyber.ee/pq/devkit/poly/vector"
+	"cyber.ee/pq/latticehelper"
+	"cyber.ee/pq/latticehelper/poly/matrix"
+	"cyber.ee/pq/latticehelper/poly/vector"
 	"cyber.ee/pq/topcoat/config"
 	"github.com/tuneinsight/lattigo/v5/ring"
 	"github.com/tuneinsight/lattigo/v5/utils/sampling"
@@ -15,7 +15,7 @@ func CommitmentKeys(ck []byte) (matrix.PolyQMatrix, matrix.PolyQMatrix) {
 		panic(err)
 	}
 
-	sampler := ring.NewUniformSampler(seededPRNG, devkit.MainRing)
+	sampler := ring.NewUniformSampler(seededPRNG, latticehelper.MainRing)
 
 	A1prime := matrix.NewRandomPolyQMatrix(sampler, int(config.Params.COMMITMENT_Nlower), int(config.Params.COMMITMENT_K-config.Params.COMMITMENT_Nlower))
 

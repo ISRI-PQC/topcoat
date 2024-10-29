@@ -3,8 +3,8 @@ package utils
 import (
 	"math/rand/v2"
 
-	"cyber.ee/pq/devkit"
-	"cyber.ee/pq/devkit/poly"
+	"cyber.ee/pq/latticehelper"
+	"cyber.ee/pq/latticehelper/poly"
 	"cyber.ee/pq/topcoat/config"
 	"github.com/hashicorp/go-set"
 	"golang.org/x/crypto/sha3"
@@ -21,7 +21,7 @@ func Hash0(data []byte) poly.PolyQ {
 	hb := hash(data, "Hash0")
 
 	r := rand.New(rand.NewChaCha8(hb))
-	coeffs := make([]int64, devkit.MainRing.N())
+	coeffs := make([]int64, latticehelper.MainRing.N())
 
 	dropoutPositions := set.New[int](int(config.Params.N - config.Params.TAU))
 

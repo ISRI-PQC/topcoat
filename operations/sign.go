@@ -9,10 +9,10 @@ import (
 	"slices"
 	"sync"
 
-	"cyber.ee/pq/devkit"
-	"cyber.ee/pq/devkit/poly"
-	"cyber.ee/pq/devkit/poly/matrix"
-	"cyber.ee/pq/devkit/poly/vector"
+	"cyber.ee/pq/latticehelper"
+	"cyber.ee/pq/latticehelper/poly"
+	"cyber.ee/pq/latticehelper/poly/matrix"
+	"cyber.ee/pq/latticehelper/poly/vector"
 	"cyber.ee/pq/topcoat/config"
 	"cyber.ee/pq/topcoat/utils"
 )
@@ -43,7 +43,7 @@ func calculateCommitment(skMine utils.TopcoatPrivateKeyShare, A, A1, A2 matrix.P
 
 	// STEP 4
 	// if config.Params.DIFFERENT_Qs {
-	// 	devkit.MainRing = devkit.MainRing.AtLevel(1)
+	// 	latticehelper.MainRing = latticehelper.MainRing.AtLevel(1)
 	// }
 	rMineSeed := make([]byte, 32)
 
@@ -55,7 +55,7 @@ func calculateCommitment(skMine utils.TopcoatPrivateKeyShare, A, A1, A2 matrix.P
 	rMine := vector.NewRandomPolyQVectorWithMaxInfNormWithSeed(rMineSeed, int(config.Params.COMMITMENT_K), config.Params.COMMITMENT_BETA)
 
 	// if config.Params.DIFFERENT_Qs {
-	// 	devkit.MainRing = devkit.MainRing.AtLevel(0)
+	// 	latticehelper.MainRing = latticehelper.MainRing.AtLevel(0)
 	// }
 
 	// STEP 5
@@ -85,7 +85,7 @@ func Sign(wg *sync.WaitGroup, comms utils.Comms, pk utils.TopcoatPublicKey, skMi
 	logger.Print("calculated ck")
 
 	// STEP X
-	ASampler, err := devkit.GetSampler(skMine.ASeed[:])
+	ASampler, err := latticehelper.GetSampler(skMine.ASeed[:])
 	if err != nil {
 		panic(err)
 	}
@@ -362,11 +362,11 @@ rejection:
 	logger.Print("Calculated whroof")
 
 	// STEP 17
-	wH := A.VecMul(zCombinedFinal).Sub(pk.T.ScaledByPolyQ(cHash0Final).ScaledByInt(devkit.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
+	wH := A.VecMul(zCombinedFinal).Sub(pk.T.ScaledByPolyQ(cHash0Final).ScaledByInt(latticehelper.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
 	logger.Print("Calculated wH")
 
 	// STEP 18
-	h1, h2 := utils.Hint(wH.NonQ(), wHroof.NonQ(), devkit.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
+	h1, h2 := utils.Hint(wH.NonQ(), wHroof.NonQ(), latticehelper.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
 	logger.Print("Calculated h1 and h2")
 
 	// STEP 19

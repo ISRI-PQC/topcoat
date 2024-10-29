@@ -1,9 +1,9 @@
 package operations
 
 import (
-	"cyber.ee/pq/devkit"
-	"cyber.ee/pq/devkit/poly/matrix"
-	"cyber.ee/pq/devkit/poly/vector"
+	"cyber.ee/pq/latticehelper"
+	"cyber.ee/pq/latticehelper/poly/matrix"
+	"cyber.ee/pq/latticehelper/poly/vector"
 	"cyber.ee/pq/topcoat/config"
 	"cyber.ee/pq/topcoat/utils"
 )
@@ -21,7 +21,7 @@ func Verify(message []byte, signature utils.TopcoatSignature, pk utils.TopcoatPu
 	h = append(h, pk.Serialize()...)
 	cHash0 := utils.Hash0(h)
 
-	ASampler, err := devkit.GetSampler(pk.ASeed[:])
+	ASampler, err := latticehelper.GetSampler(pk.ASeed[:])
 	if err != nil {
 		panic(err)
 	}
@@ -30,10 +30,10 @@ func Verify(message []byte, signature utils.TopcoatSignature, pk utils.TopcoatPu
 	A := matrix.NewRandomPolyQMatrix(ASampler, int(config.Params.K), int(config.Params.L))
 
 	// STEP 3
-	wH := A.VecMul(signature.Z).Sub(pk.T.ScaledByPolyQ(cHash0).ScaledByInt(devkit.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
+	wH := A.VecMul(signature.Z).Sub(pk.T.ScaledByPolyQ(cHash0).ScaledByInt(latticehelper.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
 
 	// STEP 4
-	wHroof := utils.UseHint(wH.NonQ(), signature.H1, signature.H2, devkit.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
+	wHroof := utils.UseHint(wH.NonQ(), signature.H1, signature.H2, latticehelper.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
 
 	r1 := vector.NewRandomPolyQVectorWithMaxInfNormWithSeed(signature.RSeed1[:], int(config.Params.COMMITMENT_K), config.Params.COMMITMENT_BETA)
 	r2 := vector.NewRandomPolyQVectorWithMaxInfNormWithSeed(signature.RSeed2[:], int(config.Params.COMMITMENT_K), config.Params.COMMITMENT_BETA)

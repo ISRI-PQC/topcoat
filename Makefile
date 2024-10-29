@@ -1,7 +1,7 @@
 .PHONY: all
-all: devkit
+all: latticehelper
 	go build .
 
-.PHONY: devkit
-devkit:
-	git clone git@gitlab.cyber.ee:pqc/PQ-protocols/pqdevkit.git
+.PHONY: latticehelper
+latticehelper:
+	git clone https://gitlab.cyber.ee/pqc/pq-tools/latticehelper

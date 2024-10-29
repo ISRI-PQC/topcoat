@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"cyber.ee/pq/devkit/poly/vector"
+	"cyber.ee/pq/latticehelper/poly/vector"
 )
 
 type TopcoatPrivateKeyShare struct {

@@ -2,10 +2,10 @@ module cyber.ee/pq/topcoat
 
 go 1.22.2
 
-replace cyber.ee/pq/devkit => ./pqdevkit
+replace cyber.ee/pq/latticehelper => ./latticehelper
 
 require (
-	cyber.ee/pq/devkit v0.0.0-00010101000000-000000000000
+	cyber.ee/pq/latticehelper v0.0.0-00010101000000-000000000000
 	github.com/hashicorp/go-set v0.1.14
 	github.com/spf13/viper v1.19.0
 	github.com/tuneinsight/lattigo/v5 v5.0.2
