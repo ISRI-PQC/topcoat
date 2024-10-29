@@ -30,7 +30,7 @@ func Verify(message []byte, signature utils.TopcoatSignature, pk utils.TopcoatPu
 	A := matrix.NewRandomPolyQMatrix(ASampler, int(config.Params.K), int(config.Params.L))
 
 	// STEP 3
-	wH := A.VecMul(signature.Z).Sub(pk.T.ScaledByPolyProxy(cHash0).ScaledByInt(devkit.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
+	wH := A.VecMul(signature.Z).Sub(pk.T.ScaledByPolyQ(cHash0).ScaledByInt(devkit.Pow(2, int64(config.Params.D)))).HighBits(2 * int64(config.Params.GAMMA_PRIME))
 
 	// STEP 4
 	wHroof := utils.UseHint(wH.TransformedToPolyVector(), signature.H1, signature.H2, devkit.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
