@@ -243,12 +243,12 @@ rejection:
 
 				// STEP 11
 
-				reject := zMineQMatrix[theirIndex][mineIndex].TransformedToPolyVector().WithCenteredModulo().CheckNormBound(
+				reject := zMineQMatrix[theirIndex][mineIndex].NonQ().WithCenteredModulo().CheckNormBound(
 					int64(config.Params.GAMMA)-int64(config.Params.BETA),
 				) || wMineListFromParallel[mineIndex].Sub(
 					skMine.S2.ScaledByPolyQ(
 						c0Hash0PolyMatrix[theirIndex][mineIndex],
-					)).TransformedToPolyVector().LowBits(
+					)).NonQ().LowBits(
 					int64(2*config.Params.GAMMA_PRIME),
 				).CheckNormBound(int64(config.Params.GAMMA_PRIME)-int64(config.Params.BETA))
 
@@ -326,7 +326,7 @@ rejection:
 	// STEP 13
 	wHTheirs := A.VecMul(zTheirFinal).Sub(skMine.Ttheirs.ScaledByPolyQ(cHash0Final)).HighBits(2 * config.Params.GAMMA_PRIME)
 
-	zTheirFinalT := zTheirFinal.TransformedToPolyVector()
+	zTheirFinalT := zTheirFinal.NonQ()
 	zTheirFinalT.ApplyToEveryCoeff(func(coeff int64) any {
 		return poly.CenteredModulo(coeff, config.Params.Q)
 	})
@@ -366,7 +366,7 @@ rejection:
 	logger.Print("Calculated wH")
 
 	// STEP 18
-	h1, h2 := utils.Hint(wH.TransformedToPolyVector(), wHroof.TransformedToPolyVector(), devkit.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
+	h1, h2 := utils.Hint(wH.NonQ(), wHroof.NonQ(), devkit.FloorDivision(config.Params.Q-1, 2*config.Params.GAMMA_PRIME))
 	logger.Print("Calculated h1 and h2")
 
 	// STEP 19
