@@ -1,0 +1,3 @@
+[submodule "latticehelper"]
+	path = latticehelper
+	url = https://gitlab.cyber.ee/pqc/pq-tools/latticehelper

@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"log"
+	"os"
 	"sync"
 
 	"cyber.ee/pq/topcoat/config"
@@ -11,7 +12,15 @@ import (
 )
 
 func main() {
-	config.InitParams()
+	paramf, err := os.Open("/Users/petr/Developer/Repos/qsv/topcoat/config/params.yaml")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = config.InitParams(paramf)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fromAliceToBob := make(chan any, 1)
 	fromBobToAlice := make(chan any, 1)
@@ -35,7 +44,7 @@ func main() {
 
 	message := make([]byte, 32)
 
-	_, err := rand.Read(message)
+	_, err = rand.Read(message)
 	if err != nil {
 		panic("Could not generate random message")
 	}

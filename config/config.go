@@ -1,7 +1,8 @@
 package config
 
 import (
-	"log"
+	"fmt"
+	"io"
 
 	"cyber.ee/pq/latticehelper"
 	"github.com/spf13/viper"
@@ -31,29 +32,29 @@ type PublicParamsType struct {
 
 var Params *PublicParamsType
 
-func InitParams() {
+func InitParams(conf io.Reader) error {
 	// PARAMETERS
 	Params = new(PublicParamsType)
-	viper.SetConfigFile("/workspaces/go/topcoat/config/params.yaml")
-	// viper.SetConfigName("params") // TODO: temp
-	// viper.SetConfigType("yaml")   // TODO: temp
-	// viper.AddConfigPath("/Users/petr/Developer/Repos/topcoat/config") // TODO: temp
-	err := viper.ReadInConfig()
+
+	viper.SetConfigType("yaml")
+	err := viper.ReadConfig(conf)
 	if err != nil {
-		log.Panicf("fatal error config file: %v", err)
+		return fmt.Errorf("fatal error config file: %w", err)
 	}
+
+	_ = viper.AllKeys()
 
 	err = viper.Unmarshal(&Params)
 	if err != nil {
-		log.Panicf("unable to decode into struct, %v", err)
+		return fmt.Errorf("unable to decode into struct, %w", err)
 	}
 
 	Params.DIFFERENT_Qs = Params.Q != Params.COMMITMENT_Q
 
 	// INITIALIZE LatticeHelper
 	if Params.DIFFERENT_Qs {
-		latticehelper.InitMultiple(Params.N, []uint64{uint64(Params.Q), uint64(Params.COMMITMENT_Q)})
+		return latticehelper.InitMultiple(Params.N, []uint64{uint64(Params.Q), uint64(Params.COMMITMENT_Q)})
 	} else {
-		latticehelper.InitSingle(Params.N, uint64(Params.Q))
+		return latticehelper.InitSingle(Params.N, uint64(Params.Q))
 	}
 }

@@ -30,7 +30,15 @@ func mean(data []int64) float64 {
 }
 
 func main() {
-	config.InitParams()
+	paramf, err := os.Open("/Users/petr/Developer/Repos/qsv/topcoat/config/params.yaml")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = config.InitParams(paramf)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	filename := fmt.Sprint(time.Now().Unix()) + ".results.txt"
 	f, err := os.Create(filename)
