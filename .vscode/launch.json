@@ -5,20 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cai example: measure",
+            "name": "topcoat example: measure",
             "type": "go",
             "request": "launch",
             "mode": "auto",
             "program": "examples/measure",
-            "showGlobalVariables": true,
         },
         {
-            "name": "cai example: local",
+            "name": "topcoat example: local",
             "type": "go",
             "request": "launch",
             "mode": "auto",
             "program": "examples/run_locally",
-            "showGlobalVariables": true,
         },
     ]
 }

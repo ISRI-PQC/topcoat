@@ -1,10 +1,10 @@
 package utils
 
 import (
-	"cyber.ee/pq/latticehelper"
-	"cyber.ee/pq/latticehelper/poly/matrix"
-	"cyber.ee/pq/latticehelper/poly/vector"
 	"cyber.ee/pq/topcoat/config"
+	"github.com/isri-pqc/latticehelper"
+	"github.com/isri-pqc/latticehelper/poly/matrix"
+	"github.com/isri-pqc/latticehelper/poly/vector"
 	"github.com/tuneinsight/lattigo/v5/ring"
 	"github.com/tuneinsight/lattigo/v5/utils/sampling"
 )

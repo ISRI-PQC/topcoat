@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"cyber.ee/pq/latticehelper"
+	"github.com/isri-pqc/latticehelper"
 	"github.com/spf13/viper"
 )
 

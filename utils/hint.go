@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"cyber.ee/pq/latticehelper"
-	"cyber.ee/pq/latticehelper/poly"
-	"cyber.ee/pq/latticehelper/poly/vector"
+	"github.com/isri-pqc/latticehelper"
+	"github.com/isri-pqc/latticehelper/poly"
+	"github.com/isri-pqc/latticehelper/poly/vector"
 )
 
 func Hint(r, rPrime vector.PolyVector, alpha int64) (vector.PolyVector, vector.PolyVector) {

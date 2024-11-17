@@ -6,11 +6,11 @@ import (
 	"os"
 	"sync"
 
-	"cyber.ee/pq/latticehelper"
-	"cyber.ee/pq/latticehelper/poly/matrix"
-	"cyber.ee/pq/latticehelper/poly/vector"
 	"cyber.ee/pq/topcoat/config"
 	"cyber.ee/pq/topcoat/utils"
+	"github.com/isri-pqc/latticehelper"
+	"github.com/isri-pqc/latticehelper/poly/matrix"
+	"github.com/isri-pqc/latticehelper/poly/vector"
 )
 
 type KeygenResult struct {

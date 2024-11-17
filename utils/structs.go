@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"cyber.ee/pq/latticehelper/poly/vector"
+	"github.com/isri-pqc/latticehelper/poly/vector"
 )
 
 type TopcoatPrivateKeyShare struct {
