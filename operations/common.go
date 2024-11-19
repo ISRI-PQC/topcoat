@@ -1,6 +1,6 @@
 package operations
 
-import "cyber.ee/pq/topcoat/utils"
+import "github.com/isri-pqc/topcoat/utils"
 
 var ProtocolMessageOK = utils.ProtocolMessage{Message: utils.ProtocolMessageTypeOK}
 var ProtocolMessageABORT = utils.ProtocolMessage{Message: utils.ProtocolMessageTypeABORT}

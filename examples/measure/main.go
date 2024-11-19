@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"cyber.ee/pq/topcoat/config"
-	"cyber.ee/pq/topcoat/operations"
-	"cyber.ee/pq/topcoat/utils"
+	"github.com/isri-pqc/topcoat/config"
+	"github.com/isri-pqc/topcoat/operations"
+	"github.com/isri-pqc/topcoat/utils"
 )
 
 const (

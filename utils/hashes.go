@@ -3,10 +3,10 @@ package utils
 import (
 	"math/rand/v2"
 
-	"cyber.ee/pq/topcoat/config"
 	"github.com/hashicorp/go-set"
 	"github.com/isri-pqc/latticehelper"
 	"github.com/isri-pqc/latticehelper/poly"
+	"github.com/isri-pqc/topcoat/config"
 	"golang.org/x/crypto/sha3"
 )
 
