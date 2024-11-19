@@ -42,8 +42,6 @@ func InitParams(conf io.Reader) error {
 		return fmt.Errorf("fatal error config file: %w", err)
 	}
 
-	_ = viper.AllKeys()
-
 	err = viper.Unmarshal(&Params)
 	if err != nil {
 		return fmt.Errorf("unable to decode into struct, %w", err)

@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	paramf, err := os.Open("/Users/petr/Developer/Repos/qsv/topcoat/config/params.yaml")
+	paramf, err := os.Open("./config/params.yaml")
 	if err != nil {
 		log.Fatal(err)
 	}
