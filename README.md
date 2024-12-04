@@ -9,5 +9,9 @@ This is a Golang implementation of TOPCOAT https://link.springer.com/article/10.
 
 See `examples/run_locally/main.go`. Right now, only Golang channel is implemented for inter-process communication. For a commandline application usage with socket communication, a new implementation of `utils/comms.Comms` is required.
 
+## Acknowledgements
+
+This work was funded by the Estonian Research Council under the grant number PRG1780 (Distributed Identity, Distributed Trust). 
+
 ## Licence 
 TOPCOAT is licensed under the MIT License. See [LICENSE](LICENSE)
